@@ -108,7 +108,7 @@ function sendMessage() {
         message: document.getElementById("message").value
     };
 
-    fetch("/contact", {
+    fetch("https://my-portfolio-backend-production-4a02.up.railway.app/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
