@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Projects</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #fafafa;
+        display: flex;
+        height: 100vh;
+    }
+
+    /* Left Sidebar */
+    .left {
+        width: 32%;
+        background: #ffffff;
+        border-right: 1px solid #eee;
+        padding: 25px;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    }
+
+    .left h2 {
+        font-size: 22px;
+        color: #444;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .project-item {
+        padding: 12px 15px;
+        background: #f2edff;
+        margin-bottom: 12px;
+        border-radius: 14px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.2s ease;
+        border-left: 4px solid #8749f2;
+    }
+
+    .project-item:hover {
+        background: #e7deff;
+    }
+
+    .delete-btn {
+        background: #ff3b3b;
+        color: #fff;
+        border: none;
+        padding: 6px 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 12px;
+    }
+
+    /* RIGHT SECTION */
+    .right {
+        flex: 1;
+        padding: 25px 35px;
+    }
+
+    .right h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #444;
+    }
+
+    .project-link-box {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid #eee;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        font-size: 18px;
+    }
+
+    .project-link-box a {
+        color: #8749f2;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    /* Add Project Box */
+    .add-box {
+        margin-top: 20px;
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 14px;
+        border: 1px solid #eee;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background: #8749f2;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 500;
+        width: 100%;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #6e34d6;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- LEFT (PROJECT LIST) -->
+<div class="left">
+    <h2>Your Projects</h2>
+
+    <div id="projectList"></div>
+
+    <div class="add-box">
+        <input type="text" id="projectName" placeholder="Project Name">
+        <input type="text" id="projectLink" placeholder="Project URL (https://)">
+        <button onclick="addProject()">Add Project</button>
+    </div>
+    
+</div>
+
+<!-- RIGHT (PROJECT PREVIEW) -->
+<div class="right">
+    <h2>Project Link</h2>
+    <div class="project-link-box" id="projectDisplay">
+        Select a project to view its link here.
+    </div>
+</div>
+
+<script>
+const API = "http://localhost:8080/api/projects";
+
+function loadProjects() {
+    fetch(API)
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById("projectList");
+            list.innerHTML = "";
+
+            data.forEach(p => {
+                list.innerHTML += `
+                    <div class="project-item" onclick="showProject(${p.id}, '${p.name}', '${p.link}')">
+                        ${p.name}
+                        <button class="delete-btn" onclick="deleteProject(event, ${p.id})">X</button>
+                    </div>
+                `;
+            });
+        });
+}
+
+function addProject() {
+    const name = document.getElementById("projectName").value;
+    const link = document.getElementById("projectLink").value;
+
+    if (name === "" || link === "") {
+        alert("Please enter both name and link");
+        return;
+    }
+
+    fetch(API, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({name, link})
+    }).then(() => {
+        loadProjects();
+        document.getElementById("projectName").value = "";
+        document.getElementById("projectLink").value = "";
+    });
+}
+
+function deleteProject(event, id) {
+    event.stopPropagation();
+    fetch(`${API}/${id}`, { method: "DELETE" })
+        .then(() => loadProjects());
+}
+
+function showProject(id, name, link) {
+    document.getElementById("projectDisplay").innerHTML = `
+        <p><strong>${name}</strong></p>
+        <a href="${link}" target="_blank">Open Project</a>
+    `;
+}
+
+function deleteProject(event, id) {
+    event.stopPropagation();
+
+    let key = prompt("Enter admin password:");
+
+    if (!key) {
+        alert("Delete cancelled.");
+        return;
+    }
+
+    fetch(`/api/projects/delete/${id}?key=${key}`, {
+        method: "DELETE"
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        loadProjects();
+    })
+    .catch(err => alert("Error: " + err));
+}
+
+
+
+loadProjects();
+</script>
+
+
+</body>
+</html>
