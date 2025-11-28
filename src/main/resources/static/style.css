@@ -896,6 +896,13 @@ footer{
     .nav-name {
         font-size: 24px;
     }
+    
+    .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;   /* distance between moon & menu */
+}
+    
 
     .mode {
         margin-left: 0;
