@@ -904,11 +904,12 @@ footer{
 }
 
 
-/* ----- Android Small Phones: 480px ----- */
+/* -----media query = Android (max-width: 480px)----- */
+
 @media only screen and (max-width: 480px) {
 
     .featured-name{
-        font-size: 32px;
+        font-size: 35px;
     }
 
     .project-box {
@@ -919,14 +920,15 @@ footer{
         flex-direction: column;
     }
 
-    .input-field {
+    .input-field{
         width: 100%;
     }
 
     .mode {
-        margin-left: 40%;
+        margin-left: 45%;
     }
 }
+
 
 /* ----- Large Phones / Small Tablets: 768px ----- */
 @media only screen and (max-width: 768px) {
