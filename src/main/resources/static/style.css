@@ -886,33 +886,136 @@ footer{
 
 @media (max-width: 600px) {
 
+    /* NAVBAR FIX */
     nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between !important;
-        padding-inline: 4vw;
+        height: 70px;
+        line-height: 70px;
+        padding-inline: 5vw;
     }
 
-    .nav-logo {
-        order: 1;
+    .nav-name {
+        font-size: 24px;
     }
+    
 
     .mode {
-        order: 2;
-        margin: 0;
+        margin-left: 0;
         margin-right: 10px;
     }
 
-    .nav-menu-btn {
-        order: 3;
-        display: flex !important;
+    /* HOME SECTION FIX */
+    .featured-box {
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        margin-left: 5px;
+        text-align: center;
+        height: auto;
+        padding-top: 90px;
+        gap: 20px;
     }
 
-    .nav-menu-btn i {
-        font-size: 30px;
-        color: var(--nav-icon);
+    .featured-text {
+        width: 100%;
+        margin-top: 0;
+        padding-left: 0;
+    }
+
+    .hello p {
+        font-size: 32px;
+    }
+
+    .featured-name {
+        font-size: 42px;
+        margin-block: 10px;
+    }
+
+    .typedText {
+        font-size: 38px !important;
+    }
+
+    .text-info {
+        padding-inline: 15px;
+        font-size: 15px;
+    }
+
+    /* BUTTON FIX */
+    .text-btn {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+        margin-top: 15px;
+    }
+
+    .btn {
+        width: 80%;
+        margin: auto;
+    }
+
+    /* IMAGE FIX */
+    .featured-image {
+        width: 100%;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .image,
+    .image img {
+        width: 230px !important;
+        height: 230px !important;
+    }
+
+    /* SOCIAL ICON FIX */
+    .socical_icons {
+        justify-content: center;
+        margin-top: 20px;
+        gap: 20px;
+    }
+
+    .icon_circle {
+        display: none;
+    }
+
+    .socical_icons .icon {
+        transform: scale(1.25);
+    }
+
+    /* ABOUT & ROW FIX */
+    .row {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .col {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .about-info,
+    .contact-info,
+    .skill {
+        width: 100%;
+    }
+
+    /* PROJECT BOX FIX */
+    .project-box {
+        width: 100% !important;
+        height: 230px;
+    }
+
+    /* FORM FIX */
+    .form-inputs {
+        flex-direction: column;
+    }
+
+    .input-field {
+        width: 100%;
+    }
+
+    .form-button .btn {
+        margin-left: 0 !important;
+        width: 60%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
     }
 }
+
