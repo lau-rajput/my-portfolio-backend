@@ -157,18 +157,22 @@ function loadProjects() {
         .then(res => res.json())
         .then(data => {
             const list = document.getElementById("projectList");
-            list.innerHTML = "";
+            list.innerHTML = "";   // OLD LIST CLEAR
 
             data.forEach(p => {
                 list.innerHTML += `
-                    <div class="project-item" onclick="showProject(${p.id}, '${p.name}', '${p.link}')">
+                    <div class="project-item"
+                        onclick="if(event.target.tagName !== 'BUTTON') showProject(${p.id}, '${p.name}', '${p.link}')">
+
                         ${p.name}
+
                         <button class="delete-btn" onclick="deleteProject(event, ${p.id})">X</button>
                     </div>
                 `;
             });
         });
 }
+
 
 function addProject() {
     const name = document.getElementById("projectName").value;
