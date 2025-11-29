@@ -229,6 +229,18 @@ function showProject(id, name, link) {
     `;
 }
 
+
+/* update show project */
+fetch("https://my-portfolio-backend-production-4a02.up.railway.app/api/projects")
+    .then(res => res.json())
+    .then(data => {
+        // Count update
+        document.getElementById("projectCount").innerText = data.length + "+ Finished Projects";
+
+        // Optionally you can show project names (if required)
+    })
+    .catch(err => console.error("Error loading projects", err));
+
 loadProjects();
 </script>
 
