@@ -322,7 +322,7 @@ i{
 .image{
     margin-top: 10%;
     width: 500px;
-    height: 700px;
+    height: 800px;
     border-radius: 40% 40% 40% 40%;
     overflow: hidden;
     animation: imgFloat 5s ease-in-out infinite;
