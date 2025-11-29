@@ -23,7 +23,7 @@ public class ProjectController {
 
     // ADD Project
     @PostMapping("/add")
-    public Object addProject(
+    public String addProject(
             @RequestBody Project project,
             @RequestParam String key) {
 
@@ -31,8 +31,10 @@ public class ProjectController {
             return "Unauthorized";
         }
 
-        return projectRepository.save(project);
+        projectRepository.save(project);
+        return "Project Added Successfully";
     }
+
 
     // DELETE Project (correct endpoint)
     @DeleteMapping("/delete/{id}")
