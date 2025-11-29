@@ -179,16 +179,28 @@ function addProject() {
         return;
     }
 
-    fetch(API, {
+    let key = prompt("Enter admin password to add project:");
+
+    if (!key) {
+        alert("Add cancelled.");
+        return;
+    }
+
+    fetch(`${API}/add?key=${key}`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({name, link})
-    }).then(() => {
+        body: JSON.stringify({ name, link })
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
         loadProjects();
         document.getElementById("projectName").value = "";
         document.getElementById("projectLink").value = "";
-    });
+    })
+    .catch(err => alert("Error: " + err));
 }
+
 
 function deleteProject(event, id) {
     event.stopPropagation();

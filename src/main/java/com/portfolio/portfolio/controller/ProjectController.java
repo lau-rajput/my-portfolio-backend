@@ -22,8 +22,15 @@ public class ProjectController {
     }
 
     // ADD Project
-    @PostMapping
-    public Project addProject(@RequestBody Project project) {
+    @PostMapping("/add")
+    public Object addProject(
+            @RequestBody Project project,
+            @RequestParam String key) {
+
+        if(!key.equals("KRISHNA_ADMIN_999")) {
+            return "Unauthorized";
+        }
+
         return projectRepository.save(project);
     }
 
