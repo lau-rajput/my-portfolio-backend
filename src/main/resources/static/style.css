@@ -325,7 +325,7 @@ i{
     height: 900px;
     border-radius: 40% 40% 40% 40%;
     overflow: hidden;
-    animation: imgFloat 2s ease-in-out infinite;
+    animation: imgFloat 5s ease-in-out infinite;
 }
 
 .image img{
